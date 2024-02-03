@@ -1,0 +1,37 @@
+<html>
+	<body>
+		<form id="form">
+			<label for="name"></label>
+			<input name="name" type="text">
+			<label for="nik"></label>
+			<input name="nik" type="text">
+			<button type="button" onclick="onSubmit()">Submit</button>
+		</form>
+		<div id="debug"></div>
+	</body>
+
+	<script>
+		const url = new URL(location.href)
+		const debug = document.getElementById("debug")
+
+		url.searchParams.forEach((value, key, parent) => {
+			const node = document.createElement("p")
+			node.innerHTML = `${key} : ${value}`
+			debug.appendChild(node)
+
+			document.getElementsByName(key)[0].setAttribute("value", value)
+		})
+
+		function onSubmit() {
+			const form = new FormData(document.getElementById("form"))
+			const newURL = new URL(location.href.split("?")[0])
+
+			const params = newURL.searchParams;
+			params.append("name", form.get("name"))
+			params.append("nik", form.get("nik"))
+
+			history.pushState(null, "", newURL.toString())
+		}
+
+	</script>
+</html>
