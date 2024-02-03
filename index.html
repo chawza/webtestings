@@ -14,6 +14,7 @@
 		const url = new URL(location.href)
 		const debug = document.getElementById("debug")
 
+		// Set form initial value on page load
 		url.searchParams.forEach((value, key, parent) => {
 			const node = document.createElement("p")
 			node.innerHTML = `${key} : ${value}`
